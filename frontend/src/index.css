@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  color-scheme: light;
+  --page: #f3f1fa;
+  --surface: #ffffff;
+  --surface-2: #f6f4fc;
+  --ink: #1d1b2c;
+  --ink-2: #5d5a70;
+  --muted: #8a879a;
+  --grid: #eceaf4;
+  --ring: rgba(76, 58, 140, 0.08);
+  --accent: #6c47d9;
+  --accent-wash: rgba(108, 71, 217, 0.08);
+  --good: #13824a;
+  --bad: #c73534;
+  --shadow: 0 1px 2px rgba(42, 30, 92, 0.04), 0 10px 30px -18px rgba(42, 30, 92, 0.18);
+
+  /* Pastel stat tiles: tint background + icon colour. */
+  --tint-violet: #f1ecfe;
+  --icon-violet: #7c4dff;
+  --tint-blue: #e7f1fd;
+  --icon-blue: #2f80ed;
+  --tint-peach: #fdeee6;
+  --icon-peach: #f07c3e;
+  --tint-green: #e6f6ec;
+  --icon-green: #1f9d55;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #121119;
+  --surface: #1b1a24;
+  --surface-2: #24222f;
+  --ink: #f1effa;
+  --ink-2: #c4c1d4;
+  --muted: #8f8ca3;
+  --grid: #2b2938;
+  --ring: rgba(255, 255, 255, 0.07);
+  --accent: #9a85f0;
+  --accent-wash: rgba(154, 133, 240, 0.12);
+  --good: #3cc47c;
+  --bad: #ef7a7a;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px -18px rgba(0, 0, 0, 0.7);
+
+  --tint-violet: rgba(124, 77, 255, 0.14);
+  --icon-violet: #a98bff;
+  --tint-blue: rgba(47, 128, 237, 0.14);
+  --icon-blue: #6aa8f5;
+  --tint-peach: rgba(240, 124, 62, 0.14);
+  --icon-peach: #f59a68;
+  --tint-green: rgba(31, 157, 85, 0.16);
+  --icon-green: #4cc884;
+}
+
+html,
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.card {
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--ring);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.tabular,
+.recharts-cartesian-axis-tick-value {
+  font-variant-numeric: tabular-nums;
+}
+
+.recharts-wrapper *:focus {
+  outline: none;
+}
+
+.field {
+  background: var(--surface);
+  border: 1px solid var(--ring);
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-size: 14px;
+  color: var(--ink);
+  box-shadow: 0 1px 2px rgba(42, 30, 92, 0.04);
+}
+.field:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.55;
+  cursor: pointer;
+}
+[data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+input[type="range"] {
+  accent-color: var(--accent);
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--surface-2) 25%, var(--grid) 50%, var(--surface-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+  border-radius: 12px;
+}
+
+/* Stat tiles: compact 2x2 on phones, 4 across on desktop. */
+.tile-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+@media (min-width: 640px) {
+  .tile-row {
+    gap: 12px;
+  }
+}
+@media (min-width: 1024px) {
+  .tile-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.chart-box {
+  min-width: 0;
+}
+
+/* Room for the phone tab bar and the iOS home indicator. */
+.safe-bottom {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 8px);
+}
